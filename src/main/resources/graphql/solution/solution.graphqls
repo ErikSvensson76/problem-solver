@@ -1,0 +1,19 @@
+type Solution implements SearchableItem{
+    id: ID!
+    createDateTime: DateTime!
+    prettyCreateDateTime: String
+    updateDateTime: DateTime
+    prettyUpdateDateTime: String
+    category: SolutionCategory!
+    content: String!
+    author: User!
+}
+
+type SolutionResponse {
+    solution: Solution
+}
+
+enum SolutionCategory {
+    EXPLANATION
+    REFERENCE
+}

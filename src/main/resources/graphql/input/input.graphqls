@@ -1,0 +1,44 @@
+input SearchItemFilter {
+    keyword: String
+}
+
+input UserCreateInput{
+    username: String!
+    password: String!
+    passwordConfirm: String!
+    userDetails: UserDetailsCreateInput!
+}
+
+input UserDetailsCreateInput{
+    email: String!
+    displayName: String
+    timeZone: String!
+    avatar: Url
+}
+
+input UserLoginInput {
+    username: String!
+    password: String!
+}
+
+input UserActivationInput{
+    username: ID!
+    active: Boolean!
+}
+
+input ProblemCreateInput {
+    title: String!
+    content: String!
+    tags: [String!]!
+}
+
+input SolutionCreateInput {
+    content: String!
+    category: SolutionCategory!
+    problemId: ID!
+}
+
+input SolutionVoteInput {
+    id: ID!
+    upVote: Boolean!
+}

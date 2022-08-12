@@ -1,0 +1,37 @@
+type UserAuthToken {
+    authToken: String
+    expiryTime: DateTime
+}
+
+type UserResponse {
+    user: User
+    authToken: UserAuthToken
+}
+
+type UserActivationResponse {
+    isActive: Boolean!
+}
+
+type User{
+    id: ID!
+    username: String!
+    registrationDate: DateTime!
+    userDetails: UserDetails
+    problems: [Problem!]
+}
+
+type UserDetails{
+    id: ID!
+    email: String!
+    profile: Url
+    displayName: String
+}
+
+type Role{
+    id: ID!
+    userRole: UserRole!
+}
+
+enum UserRole{
+    APP_USER,APP_ADMIN
+}

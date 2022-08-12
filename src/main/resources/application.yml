@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: "recipe-api"
+  profiles:
+    active: "dev"
+  datasource:
+    url: "jdbc:mysql://127.0.0.1:3306/problem-solver-dev?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    username: "root"
+    password: "1234"
+    tomcat:
+      test-while-idle: true
+      validation-query: "SELECT 1"
+      initial-size: 15
+      max-wait: 20000
+      max-active: 50
+      max-idle: 15
+      min-idle: 8
+      default-auto-commit: true
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: "org.hibernate.dialect.MySQL8Dialect"
+  graphql:
+    path: "/graphql"
+    graphiql:
+      enabled: true
+      path: "/graphiql"

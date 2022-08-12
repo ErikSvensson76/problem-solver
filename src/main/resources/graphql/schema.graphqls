@@ -1,0 +1,38 @@
+scalar DateTime
+scalar Url
+scalar NonNegativeInt
+
+type Query {
+    me(username: String!): User!
+    problemLatestList: [Problem!]
+    problemDetail(id: ID!) : Problem
+    itemSearch(filter: SearchItemFilter) : [SearchableItem]
+}
+
+type Mutation {
+    userCreate(user: UserDetailsCreateInput!) : UserResponse!
+    userLogin(user: UserLoginInput!) : UserResponse!
+    userActivation(user: UserActivationInput!) : UserActivationResponse!
+    problemCreate(problem: ProblemCreateInput!) : ProblemResponse!
+    solutionCreate(solution: SolutionCreateInput!) : SolutionResponse!
+    solutionVote(vote: SolutionVoteInput!) : SolutionResponse!
+}
+
+interface SearchableItem {
+    id: ID!
+    createDateTime: DateTime!
+    prettyCreateDateTime: String
+    content: String!
+    author: User!
+}
+
+
+
+
+
+
+
+
+
+
+
