@@ -27,8 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         securityUserDetails.setActive(appUser.isActive());
         securityUserDetails.setUserDetailsId(appUser.getAppUserDetails().getId());
         securityUserDetails.setEmail(appUser.getAppUserDetails().getEmail());
-
-
-        return null;
+        return securityUserDetails;
     }
 }
