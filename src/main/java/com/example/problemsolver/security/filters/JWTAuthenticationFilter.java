@@ -1,17 +1,11 @@
 package com.example.problemsolver.security.filters;
 
-import com.example.problemsolver.datasource.entity.EntityAppUser;
-import com.example.problemsolver.datasource.repository.EntityAppUserRepository;
-import com.example.problemsolver.exception.AppResourceNotFoundException;
 import com.example.problemsolver.model.input.UserLoginInput;
-import com.example.problemsolver.model.response.User;
 import com.example.problemsolver.model.response.UserAuthToken;
-import com.example.problemsolver.model.response.UserDetails;
 import com.example.problemsolver.model.response.UserResponse;
 import com.example.problemsolver.security.JWTUtil;
 import com.example.problemsolver.security.SecurityUserDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,24 +13,24 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.OffsetDateTime;
-import java.time.ZoneOffset;
 
-@Component
-@RequiredArgsConstructor
+
+
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JWTUtil jwtUtil;
-    private final EntityAppUserRepository repository;
+
+    public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+        this.authenticationManager = authenticationManager;
+        this.jwtUtil = jwtUtil;
+    }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -60,7 +54,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    @Transactional(readOnly = true)
     protected void successfulAuthentication(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -72,22 +65,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         if(securityUserDetails != null){
             String token = jwtUtil.buildToken(securityUserDetails);
-            EntityAppUser entityAppUser = repository.findByUsername(securityUserDetails.getUsername())
-                    .orElseThrow(() -> new  AppResourceNotFoundException("Couln't find user with provided username"));
-            User user = new User();
-            user.setId(entityAppUser.getId());
-            user.setUsername(entityAppUser.getUsername());
-            OffsetDateTime dateTime = OffsetDateTime.of(entityAppUser.getRegistrationDate(), ZoneOffset.ofHours(2));
-            user.setRegistrationDate(dateTime);
 
-            user.setUserDetails(new UserDetails(
-                    user.getUserDetails().getId(),
-                    user.getUserDetails().getEmail(),
-                    user.getUserDetails().getProfile(),
-                    user.getUserDetails().getDisplayName()
-            ));
-            UserResponse userResponse = new UserResponse();
-            userResponse.setUser(user);
+            UserResponse userResponse = new UserResponse(null, new UserAuthToken(token, null));
+
+
             userResponse.setAuthToken(
                     new UserAuthToken(token, null)
             );
