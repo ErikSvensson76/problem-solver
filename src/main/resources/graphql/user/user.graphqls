@@ -1,11 +1,6 @@
-type UserAuthToken {
-    authToken: String
-    expiryTime: DateTime
-}
-
 type UserResponse {
     user: User
-    authToken: UserAuthToken
+    token: String
 }
 
 type UserActivationResponse {
@@ -17,6 +12,7 @@ type User{
     username: String!
     registrationDate: DateTime!
     userDetails: UserDetails
+    roles: [String!]
     problems: [Problem!]
 }
 

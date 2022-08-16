@@ -18,4 +18,5 @@ public class User {
     private OffsetDateTime registrationDate;
     private UserDetails userDetails;
     private List<Problem> problems;
+    private List<String> roles;
 }

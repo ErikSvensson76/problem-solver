@@ -29,6 +29,6 @@ public class EntityAppUserDetails {
     @Column(name = "country")
     private String country;
     @Column(name = "zone_id")
-    private ZoneId localZoneId;
+    private Integer offsetHours;
 
 }

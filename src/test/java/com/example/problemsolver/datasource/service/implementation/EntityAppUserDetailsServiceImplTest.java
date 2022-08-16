@@ -50,7 +50,7 @@ class EntityAppUserDetailsServiceImplTest {
                 "test@test.com",
                 "Test Testsson",
                 "Sweden",
-                ZoneId.of("Europe/Berlin")
+                2
         );
 
         var result = testObject.create(newObject);
@@ -59,7 +59,7 @@ class EntityAppUserDetailsServiceImplTest {
         assertEquals(newObject.getEmail(), result.getEmail());
         assertEquals(newObject.getCountry(), result.getCountry());
         assertEquals(newObject.getDisplayName(), result.getDisplayName());
-        assertEquals(newObject.getLocalZoneId(), result.getLocalZoneId());
+        assertEquals(newObject.getOffsetHours(), result.getOffsetHours());
 
     }
 
@@ -86,7 +86,7 @@ class EntityAppUserDetailsServiceImplTest {
         updatedObj.setId(persistedObj.getId());
         updatedObj.setDisplayName(persistedObj.getDisplayName());
         updatedObj.setEmail(persistedObj.getEmail());
-        updatedObj.setLocalZoneId(persistedObj.getLocalZoneId());
+        updatedObj.setOffsetHours(persistedObj.getOffsetHours());
         updatedObj.setCountry("Denmark");
 
         var result = testObject.update(updatedObj);
@@ -106,7 +106,7 @@ class EntityAppUserDetailsServiceImplTest {
                 conflictingObj.getEmail(),
                 persistedObj.getDisplayName(),
                 persistedObj.getCountry(),
-                persistedObj.getLocalZoneId()
+                persistedObj.getOffsetHours()
         );
 
         assertThrows(

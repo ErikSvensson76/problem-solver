@@ -7,23 +7,6 @@ import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 
 @Configuration
 public class ScalarConfig {
-    /*
-    @Bean
-    public GraphQLScalarType nonNegativeInt(){
-        return ExtendedScalars.NonNegativeInt;
-    }
-
-    @Bean
-    public GraphQLScalarType url(){
-        return ExtendedScalars.Url;
-    }
-
-    @Bean
-    public GraphQLScalarType dateTime(){
-        return ExtendedScalars.DateTime;
-    }
-
-     */
 
     @Bean
     public RuntimeWiringConfigurer runtimeWiringConfigurer(){

@@ -21,7 +21,7 @@ public class EntityAppUserDetailsServiceImpl implements EntityAppUserDetailsServ
         appUserDetails.setCountry(data.getCountry());
         appUserDetails.setEmail(data.getEmail());
         appUserDetails.setDisplayName(data.getDisplayName());
-        appUserDetails.setLocalZoneId(data.getLocalZoneId());
+        appUserDetails.setOffsetHours(data.getOffsetHours());
 
         return repository.save(appUserDetails);
     }
@@ -43,7 +43,7 @@ public class EntityAppUserDetailsServiceImpl implements EntityAppUserDetailsServ
             throw new IllegalArgumentException("Email: " + data.getEmail() + " is already taken");
         }
 
-        userDetails.setLocalZoneId(data.getLocalZoneId());
+        userDetails.setOffsetHours(data.getOffsetHours());
         userDetails.setEmail(data.getEmail());
         userDetails.setDisplayName(data.getDisplayName());
         userDetails.setCountry(data.getCountry());
